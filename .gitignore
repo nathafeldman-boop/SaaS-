@@ -36,3 +36,7 @@ next-env.d.ts
 # database
 prisma/*.db
 prisma/*.db-journal
+
+# scratch / temp artifacts (screenshots, logs, cookies, test scripts)
+/scratch
+
