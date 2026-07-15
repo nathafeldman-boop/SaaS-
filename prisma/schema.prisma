@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String       @id @default(cuid())
+  email                String       @unique
+  name                 String?
+  passwordHash         String
+  plan                 String       @default("FREE") // FREE | PRO_MONTHLY | PRO_YEARLY
+  stripeCustomerId     String?      @unique
+  stripeSubscriptionId String?
+  planExpiresAt        DateTime?
+  createdAt            DateTime     @default(now())
+  usages               DailyUsage[]
+}
+
+// Compteur de consommation par jour (analyses + questions assistant)
+model DailyUsage {
+  id             String @id @default(cuid())
+  userId         String
+  day            String // YYYY-MM-DD
+  analysisCount  Int    @default(0)
+  assistantCount Int    @default(0)
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, day])
+}
+
+model Team {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  shortName   String
+  league      String
+  attack      Float
+  defense     Float
+  form        Float
+  color       String  @default("#14bf5b")
+  homeMatches Match[] @relation("HomeTeam")
+  awayMatches Match[] @relation("AwayTeam")
+}
+
+model Match {
+  id         String   @id @default(cuid())
+  league     String
+  kickoff    DateTime
+  status     String   @default("SCHEDULED") // SCHEDULED | LIVE | FINISHED
+  homeTeamId String
+  awayTeamId String
+  homeTeam   Team     @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeam   Team     @relation("AwayTeam", fields: [awayTeamId], references: [id])
+
+  @@index([kickoff])
+}
