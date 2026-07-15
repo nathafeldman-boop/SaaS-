@@ -1,14 +1,11 @@
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getMatchById } from "@/lib/fixtures";
 import { AnalysisPanel } from "@/components/AnalysisPanel";
 
 export const dynamic = "force-dynamic";
 
 export default async function MatchPage({ params }: { params: { id: string } }) {
-  const match = await prisma.match.findUnique({
-    where: { id: params.id },
-    include: { homeTeam: true, awayTeam: true },
-  });
+  const match = await getMatchById(params.id);
   if (!match) notFound();
 
   return (

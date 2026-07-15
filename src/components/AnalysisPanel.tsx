@@ -57,6 +57,8 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
+const DEMO = process.env.NEXT_PUBLIC_DEMO === "1";
+
 export function AnalysisPanel({ matchId, homeName, awayName }: { matchId: string; homeName: string; awayName: string }) {
   const { status } = useSession();
   const [data, setData] = useState<AnalysisResponse | null>(null);
@@ -81,7 +83,7 @@ export function AnalysisPanel({ matchId, homeName, awayName }: { matchId: string
     }
   }
 
-  if (status === "unauthenticated") {
+  if (!DEMO && status === "unauthenticated") {
     return (
       <div className="card mt-10 p-8 text-center">
         <h2 className="text-xl font-semibold">Analyse verrouillée</h2>

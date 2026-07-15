@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { prisma } from "@/lib/db";
+import { listMatches } from "@/lib/fixtures";
 
 export const dynamic = "force-dynamic";
 
@@ -8,14 +8,7 @@ export const metadata = {
 };
 
 export default async function MatchsPage({ searchParams }: { searchParams: { ligue?: string } }) {
-  const matches = await prisma.match.findMany({
-    where: {
-      kickoff: { gte: new Date() },
-      ...(searchParams.ligue ? { league: searchParams.ligue } : {}),
-    },
-    include: { homeTeam: true, awayTeam: true },
-    orderBy: { kickoff: "asc" },
-  });
+  const matches = await listMatches(searchParams.ligue);
 
   const leagues = ["Ligue 1", "Premier League", "LaLiga", "Serie A", "Bundesliga"];
 

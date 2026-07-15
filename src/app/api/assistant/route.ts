@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/db";
 import { predict } from "@/lib/predictor";
 import { consumeQuota } from "@/lib/quota";
+import { DEMO, listMatches } from "@/lib/fixtures";
 
 export const maxDuration = 60;
 
@@ -21,12 +21,7 @@ interface MatchContext {
 }
 
 async function buildContext(question: string): Promise<MatchContext[]> {
-  const matches = await prisma.match.findMany({
-    where: { kickoff: { gte: new Date() } },
-    include: { homeTeam: true, awayTeam: true },
-    orderBy: { kickoff: "asc" },
-    take: 40,
-  });
+  const matches = (await listMatches()).slice(0, 40);
 
   const q = question.toLowerCase();
   const relevant = matches.filter(
@@ -67,25 +62,28 @@ function localAnswer(question: string, context: MatchContext[]): string {
 }
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Connectez-vous pour utiliser l'assistant", code: "AUTH" }, { status: 401 });
-  }
-
   const { question } = await req.json().catch(() => ({}));
   if (!question || typeof question !== "string" || question.length > 1000) {
     return NextResponse.json({ error: "Question invalide" }, { status: 400 });
   }
 
-  const quota = await consumeQuota(session.user.id, "assistant");
-  if (!quota.allowed) {
-    return NextResponse.json(
-      {
-        error: `Quota atteint : ${quota.limit} questions par jour avec votre plan. Passez Pro pour un assistant illimité.`,
-        code: "QUOTA",
-      },
-      { status: 402 }
-    );
+  // Mode démo : assistant ouvert, sans authentification ni quota.
+  if (!DEMO) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Connectez-vous pour utiliser l'assistant", code: "AUTH" }, { status: 401 });
+    }
+
+    const quota = await consumeQuota(session.user.id, "assistant");
+    if (!quota.allowed) {
+      return NextResponse.json(
+        {
+          error: `Quota atteint : ${quota.limit} questions par jour avec votre plan. Passez Pro pour un assistant illimité.`,
+          code: "QUOTA",
+        },
+        { status: 402 }
+      );
+    }
   }
 
   const context = await buildContext(question);

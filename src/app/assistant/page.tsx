@@ -9,6 +9,8 @@ interface ChatMessage {
   text: string;
 }
 
+const DEMO = process.env.NEXT_PUBLIC_DEMO === "1";
+
 const suggestions = [
   "Que penses-tu du prochain match du PSG ?",
   "Compare l'attaque de l'OM et de Monaco",
@@ -49,7 +51,7 @@ export default function AssistantPage() {
     }
   }
 
-  if (status === "unauthenticated") {
+  if (!DEMO && status === "unauthenticated") {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
         <h1 className="text-3xl font-bold">Assistant IA football</h1>

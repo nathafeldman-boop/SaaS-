@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { PLANS, type PlanId } from "@/lib/plans";
 
+const DEMO = process.env.NEXT_PUBLIC_DEMO === "1";
+
 export default function TarifsPage() {
   const { status } = useSession();
   const router = useRouter();
@@ -12,6 +14,10 @@ export default function TarifsPage() {
   const [error, setError] = useState<string | null>(null);
 
   async function subscribe(plan: PlanId) {
+    if (DEMO) {
+      router.push("/matchs");
+      return;
+    }
     if (plan === "FREE") {
       router.push(status === "authenticated" ? "/matchs" : "/inscription");
       return;

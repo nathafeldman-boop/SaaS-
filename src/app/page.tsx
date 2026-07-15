@@ -1,16 +1,12 @@
 import Link from "next/link";
-import { prisma } from "@/lib/db";
 import { predict } from "@/lib/predictor";
+import { firstMatch, DEMO } from "@/lib/fixtures";
 
 export const dynamic = "force-dynamic";
 
 async function getFeaturedMatch() {
   try {
-    const match = await prisma.match.findFirst({
-      where: { kickoff: { gte: new Date() } },
-      include: { homeTeam: true, awayTeam: true },
-      orderBy: { kickoff: "asc" },
-    });
+    const match = await firstMatch();
     if (!match) return null;
     return { match, prediction: predict(match.homeTeam, match.awayTeam) };
   } catch {
@@ -80,14 +76,18 @@ export default async function Home() {
                 scores exacts, buts attendus et forme des équipes. Comprenez le match avant qu&apos;il commence.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Link href="/inscription" className="btn-primary">
-                  Commencer gratuitement
+                <Link href="/matchs" className="btn-primary">
+                  {DEMO ? "Tester une analyse" : "Commencer gratuitement"}
                 </Link>
-                <Link href="/matchs" className="btn-secondary">
-                  Voir les matchs analysés
+                <Link href="/assistant" className="btn-secondary">
+                  {DEMO ? "Essayer l'assistant IA" : "Voir les matchs analysés"}
                 </Link>
               </div>
-              <p className="mt-4 text-sm text-slate-400">3 analyses gratuites par jour, sans carte bancaire.</p>
+              <p className="mt-4 text-sm text-slate-400">
+                {DEMO
+                  ? "Démo publique : analyses et assistant ouverts, sans inscription."
+                  : "3 analyses gratuites par jour, sans carte bancaire."}
+              </p>
             </div>
 
             {featured && (

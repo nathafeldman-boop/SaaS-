@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 
+const DEMO = process.env.NEXT_PUBLIC_DEMO === "1";
+
 const links = [
   { href: "/matchs", label: "Matchs" },
   { href: "/assistant", label: "Assistant IA" },
@@ -28,7 +30,11 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
-          {session ? (
+          {DEMO ? (
+            <span className="rounded-full border border-pitch-500/40 bg-pitch-500/10 px-3 py-1 text-xs font-semibold text-pitch-300">
+              Démo publique
+            </span>
+          ) : session ? (
             <div className="flex items-center gap-3">
               <Link href="/compte" className="text-sm text-slate-300 transition hover:text-white">
                 Mon compte
@@ -64,7 +70,9 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
-            {session ? (
+            {DEMO ? (
+              <span className="text-xs font-semibold text-pitch-300">Démo publique</span>
+            ) : session ? (
               <>
                 <Link href="/compte" onClick={() => setOpen(false)} className="text-slate-300">
                   Mon compte
