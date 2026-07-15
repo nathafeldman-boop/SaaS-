@@ -4,6 +4,9 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 
 export const authOptions: NextAuthOptions = {
+  // Secret de repli pour la démo publique : NextAuth exige un secret en production.
+  // En vrai déploiement SaaS, définissez NEXTAUTH_SECRET.
+  secret: process.env.NEXTAUTH_SECRET ?? "avantmatch-demo-fallback-secret-set-NEXTAUTH_SECRET-in-prod",
   session: { strategy: "jwt" },
   pages: {
     signIn: "/connexion",
