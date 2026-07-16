@@ -55,8 +55,7 @@ export default async function Home() {
   return (
     <div>
       {/* Hero + analyseur */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-pitch-950/50 via-night-950 to-night-950" />
+      <section className="pitch-bg relative overflow-hidden">
         <div className="relative mx-auto max-w-5xl px-4 py-14 md:py-20">
           <div className="text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-pitch-500/40 bg-pitch-500/10 px-4 py-1.5 text-sm font-semibold text-pitch-300">
