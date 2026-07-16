@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       const session = event.data.object as Stripe.Checkout.Session;
       const userId = session.metadata?.userId;
       const plan = session.metadata?.plan;
-      if (userId && (plan === "PRO_MONTHLY" || plan === "PRO_YEARLY")) {
+      if (userId && (plan === "STARTER" || plan === "PRO_MONTHLY" || plan === "LIFETIME")) {
         await prisma.user.update({
           where: { id: userId },
           data: {

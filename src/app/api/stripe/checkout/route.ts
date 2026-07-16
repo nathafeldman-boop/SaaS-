@@ -11,9 +11,10 @@ export async function POST(req: Request) {
   }
 
   const { plan } = await req.json().catch(() => ({}));
-  if (plan !== "PRO_MONTHLY" && plan !== "PRO_YEARLY") {
+  if (plan !== "STARTER" && plan !== "PRO_MONTHLY" && plan !== "LIFETIME") {
     return NextResponse.json({ error: "Plan invalide" }, { status: 400 });
   }
+  const mode: "subscription" | "payment" = plan === "LIFETIME" ? "payment" : "subscription";
 
   const stripe = getStripe();
   const priceId = priceIdForPlan(plan);
@@ -40,12 +41,12 @@ export async function POST(req: Request) {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   const checkout = await stripe.checkout.sessions.create({
     customer: customerId,
-    mode: "subscription",
+    mode,
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${appUrl}/compte?paiement=succes`,
     cancel_url: `${appUrl}/tarifs?paiement=annule`,
     metadata: { userId: user.id, plan },
-    subscription_data: { metadata: { userId: user.id, plan } },
+    ...(mode === "subscription" ? { subscription_data: { metadata: { userId: user.id, plan } } } : {}),
   });
 
   return NextResponse.json({ url: checkout.url });

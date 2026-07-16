@@ -123,6 +123,20 @@ export async function getMatchById(id: string): Promise<FixtureMatch | null> {
   }) as unknown as Promise<FixtureMatch | null>;
 }
 
+/** Toutes les équipes (pour les sélecteurs de l'analyseur). */
+export function allTeams(): FixtureTeam[] {
+  return TEAMS.map(team);
+}
+
+/** Recherche une équipe par nom complet ou nom court (insensible à la casse). */
+export function findTeam(idOrName: string): FixtureTeam | null {
+  const q = idOrName.trim().toLowerCase();
+  const t =
+    TEAMS.find((x) => x.shortName.toLowerCase() === q || x.name.toLowerCase() === q) ??
+    TEAMS.find((x) => x.name.toLowerCase().includes(q) && q.length >= 3);
+  return t ? team(t) : null;
+}
+
 export async function firstMatch(): Promise<FixtureMatch | null> {
   if (DEMO) {
     return computeFixtures()[0] ?? null;

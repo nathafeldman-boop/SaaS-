@@ -1,4 +1,4 @@
-export type PlanId = "FREE" | "PRO_MONTHLY" | "PRO_YEARLY";
+export type PlanId = "FREE" | "STARTER" | "PRO_MONTHLY" | "LIFETIME";
 
 export interface Plan {
   id: PlanId;
@@ -9,7 +9,10 @@ export interface Plan {
   analysesPerDay: number | null;
   /** Questions à l'assistant IA par jour ; null = illimité */
   assistantPerDay: number | null;
+  /** Mode de paiement Stripe */
+  mode: "free" | "subscription" | "payment";
   features: string[];
+  highlight?: boolean;
 }
 
 export const PLANS: Record<PlanId, Plan> = {
@@ -20,46 +23,65 @@ export const PLANS: Record<PlanId, Plan> = {
     priceDetail: "pour toujours",
     analysesPerDay: 3,
     assistantPerDay: 5,
+    mode: "free",
     features: [
-      "3 analyses de matchs par jour",
-      "Probabilités 1N2 et scores exacts",
-      "5 questions à l'assistant IA par jour",
-      "Les 5 grands championnats",
+      "Aperçu de l'analyse (forme, résumé, scénario)",
+      "3 aperçus de matchs par jour",
+      "Assistant IA (5 questions/jour)",
+    ],
+  },
+  STARTER: {
+    id: "STARTER",
+    label: "Starter",
+    price: "9,99 €",
+    priceDetail: "par mois",
+    analysesPerDay: 1,
+    assistantPerDay: 5,
+    mode: "subscription",
+    features: [
+      "1 analyse complète par jour",
+      "Probabilités exactes 1×/jour",
+      "Stats clés",
+      "Scénarios de match",
     ],
   },
   PRO_MONTHLY: {
     id: "PRO_MONTHLY",
     label: "Pro",
-    price: "14,99 €",
-    priceDetail: "par mois, sans engagement",
+    price: "19 €",
+    priceDetail: "par mois",
     analysesPerDay: null,
     assistantPerDay: null,
+    mode: "subscription",
+    highlight: true,
     features: [
-      "Analyses illimitées",
-      "Assistant IA illimité",
-      "Statistiques avancées (xG, forme, dépendance des scores)",
-      "Indice de confiance sur chaque match",
-      "Alertes avant coup d'envoi",
+      "Analyses complètes illimitées",
+      "Probabilités exactes & scores détaillés",
+      "Scénarios IA avancés",
+      "Stats avancées + actualités",
+      "Chat IA illimité",
     ],
   },
-  PRO_YEARLY: {
-    id: "PRO_YEARLY",
-    label: "Pro Annuel",
-    price: "9,99 €",
-    priceDetail: "par mois, facturé 119,88 € par an",
+  LIFETIME: {
+    id: "LIFETIME",
+    label: "Lifetime",
+    price: "99 €",
+    priceDetail: "une fois — à vie",
     analysesPerDay: null,
     assistantPerDay: null,
+    mode: "payment",
     features: [
-      "Tout le plan Pro",
-      "2 mois offerts (-33 %)",
+      "Tout le plan Pro, à vie",
+      "Plus jamais de paiement mensuel",
+      "Économise +100 €/an",
       "Accès prioritaire aux nouvelles ligues",
-      "Export des analyses (CSV)",
     ],
   },
 };
 
+/** Un plan payant débloque l'analyse premium complète. */
 export function isPro(plan: string | null | undefined): boolean {
-  return plan === "PRO_MONTHLY" || plan === "PRO_YEARLY";
+  return plan === "STARTER" || plan === "PRO_MONTHLY" || plan === "LIFETIME" || plan === "PRO_YEARLY";
 }
 
 export function getPlan(plan: string | null | undefined): Plan {

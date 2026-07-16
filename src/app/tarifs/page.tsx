@@ -47,7 +47,7 @@ export default function TarifsPage() {
     }
   }
 
-  const order: PlanId[] = ["FREE", "PRO_MONTHLY", "PRO_YEARLY"];
+  const order: PlanId[] = ["STARTER", "PRO_MONTHLY", "LIFETIME"];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
@@ -66,7 +66,7 @@ export default function TarifsPage() {
       <div className="mt-12 grid gap-6 lg:grid-cols-3">
         {order.map((id) => {
           const plan = PLANS[id];
-          const highlight = id === "PRO_YEARLY";
+          const highlight = plan.highlight ?? false;
           return (
             <div
               key={id}
@@ -74,7 +74,12 @@ export default function TarifsPage() {
             >
               {highlight && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-pitch-500 px-4 py-1 text-xs font-bold text-night-950">
-                  Meilleur rapport qualité/prix
+                  ⭐ Populaire
+                </span>
+              )}
+              {id === "LIFETIME" && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1 text-xs font-bold text-night-950">
+                  ∞ À vie
                 </span>
               )}
               <h2 className="text-lg font-semibold">{plan.label}</h2>
