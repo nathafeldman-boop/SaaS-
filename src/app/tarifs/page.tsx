@@ -117,7 +117,7 @@ export default function TarifsPage() {
             },
             {
               q: "Est-ce un site de paris ?",
-              a: "Non. AvantMatch est un outil d'information et d'analyse statistique. Nous ne prenons pas de paris et nous ne garantissons aucun résultat : le football reste imprévisible.",
+              a: "Non. PrediStart est un outil d'information et d'analyse statistique. Nous ne prenons pas de paris et nous ne garantissons aucun résultat : le football reste imprévisible.",
             },
             {
               q: "Puis-je annuler mon abonnement ?",

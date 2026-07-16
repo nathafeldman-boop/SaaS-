@@ -1,6 +1,6 @@
-# ⚽ AvantMatch — Le match, décrypté avant le coup d'envoi
+# ⚽ PrediStart — Le match, décrypté avant le coup d'envoi
 
-**AvantMatch** est un SaaS d'analyse statistique de matchs de football par IA, concurrent direct de Visifoot, positionné pour capter le même marché avec un pricing plus agressif et un produit plus généreux.
+**PrediStart** est un SaaS d'analyse statistique de matchs de football par IA, concurrent direct de Visifoot, positionné pour capter le même marché avec un pricing plus agressif et un produit plus généreux.
 
 > Outil d'information et d'analyse uniquement — pas un service de paris, aucun résultat garanti.
 
@@ -13,13 +13,13 @@
 
 ## Pricing (pensé pour battre Visifoot sur le MRR)
 
-| | Visifoot | **AvantMatch** |
+| | Visifoot | **PrediStart** |
 |---|---|---|
 | Gratuit | accès limité | **3 analyses + 5 questions IA / jour** |
 | Mensuel | 22,90 €/mois, plafonné à 10 analyses/jour | **14,99 €/mois, illimité** (-35 %) |
 | Annuel | 69,99 €/an | **119,88 €/an (9,99 €/mois, -33 %)** |
 
-Logique : leur mensuel est cher et bridé, leur annuel est bradé (5,80 €/mois) — ce qui cannibalise leur MRR. AvantMatch inverse : un mensuel nettement moins cher **et** illimité pour convertir leurs abonnés frustrés par le plafond, et un annuel à 9,99 €/mois qui génère ~1,7× plus de revenu par abonné annuel que le leur.
+Logique : leur mensuel est cher et bridé, leur annuel est bradé (5,80 €/mois) — ce qui cannibalise leur MRR. PrediStart inverse : un mensuel nettement moins cher **et** illimité pour convertir leurs abonnés frustrés par le plafond, et un annuel à 9,99 €/mois qui génère ~1,7× plus de revenu par abonné annuel que le leur.
 
 **Objectif MRR — chemin type :** avec un ARPU mixte ~12 €/mois (60 % annuel / 40 % mensuel), il faut ≈ 850 abonnés payants pour 10 k€ de MRR. À 3 % de conversion free→paid, cela demande ~28 000 inscrits — atteignable sur ce marché (audience Visifoot : Twitter/X foot FR, TikTok pronos, communautés Discord).
 

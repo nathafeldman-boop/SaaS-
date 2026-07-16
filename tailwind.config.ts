@@ -5,18 +5,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Palette de marque PrediStart : bleu néon (issu du logo).
         pitch: {
-          50: "#effef4",
-          100: "#d9fbe5",
-          200: "#b5f5cc",
-          300: "#7ceba8",
-          400: "#3cd87c",
-          500: "#14bf5b",
-          600: "#099e48",
-          700: "#0a7c3c",
-          800: "#0d6233",
-          900: "#0c512c",
-          950: "#032d16",
+          50: "#eef6ff",
+          100: "#d9ecff",
+          200: "#bcdcff",
+          300: "#8ec6ff",
+          400: "#57a8ff",
+          500: "#2b8cff",
+          600: "#166fe6",
+          700: "#1358bb",
+          800: "#164a94",
+          900: "#173f74",
+          950: "#0b1f3f",
         },
         night: {
           50: "#f4f6fb",

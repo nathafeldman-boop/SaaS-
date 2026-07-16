@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "AvantMatch — Le match, décrypté avant le coup d'envoi",
+  title: "PrediStart — Prédis chaque match avant qu'il ne commence",
   description:
     "Analyses statistiques de matchs de football par IA : probabilités, scores exacts, forme des équipes et assistant intelligent. Les 5 grands championnats.",
 };

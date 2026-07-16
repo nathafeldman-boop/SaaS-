@@ -71,7 +71,7 @@ export default function AssistantPage() {
     <div className="mx-auto flex max-w-3xl flex-col px-4 py-10" style={{ minHeight: "calc(100vh - 200px)" }}>
       <h1 className="text-2xl font-bold">Assistant IA</h1>
       <p className="mt-1 text-sm text-slate-400">
-        Réponses basées sur les probabilités et statistiques du modèle AvantMatch.
+        Réponses basées sur les probabilités et statistiques du modèle PrediStart.
       </p>
 
       <div className="mt-6 flex-1 space-y-4">

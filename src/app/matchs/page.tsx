@@ -5,7 +5,7 @@ import { predict } from "@/lib/predictor";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Matchs à venir — AvantMatch",
+  title: "Matchs à venir — PrediStart",
 };
 
 function Badge({ short, color, size = 40 }: { short: string; color: string; size?: number }) {

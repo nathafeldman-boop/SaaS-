@@ -1,5 +1,5 @@
 /**
- * Moteur de prédiction AvantMatch.
+ * Moteur de prédiction PrediStart.
  *
  * Modèle de Poisson bivarié inspiré de Dixon-Coles (1997) :
  * les buts marqués par chaque équipe suivent une loi de Poisson dont

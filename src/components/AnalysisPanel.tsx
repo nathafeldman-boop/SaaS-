@@ -174,7 +174,7 @@ export function AnalysisPanel({ matchId, homeName, awayName }: { matchId: string
           ))}
         </ul>
         <p className="mt-6 text-xs text-slate-500">
-          Analyse générée par le modèle statistique AvantMatch (Poisson bivarié, correction Dixon-Coles). Le football
+          Analyse générée par le modèle statistique PrediStart (Poisson bivarié, correction Dixon-Coles). Le football
           reste imprévisible : aucune issue n&apos;est garantie.
         </p>
       </div>

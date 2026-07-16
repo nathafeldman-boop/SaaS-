@@ -19,9 +19,10 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-night-950/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-pitch-500 text-night-950">⚽</span>
-          Avant<span className="text-pitch-400">Match</span>
+        <Link href="/" className="flex items-center gap-2.5 text-xl font-bold">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="PrediStart" className="h-9 w-9 rounded-xl ring-1 ring-pitch-500/40" />
+          Predi<span className="text-pitch-400">Start</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
